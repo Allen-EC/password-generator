@@ -143,6 +143,30 @@ function getNum(messagePrompt, minVal, maxVal)
 function getPasswordOptions()
 {
   passwordProperties.passwordLength = getNum("Please enter a lengh for your password between 10 and 64 characters:", 10, 64);
+  if(passwordProperties.passwordLength === false)
+  // If getNum has returned 'false', then the user has not entered a valid nnumber, so just leave, returning 'false'.
+  {
+    return false;
+  }
+
+  // Ask user for the types of characters they want in the password.
+  passwordProperties.lowerChars = confirm("Should the password include 'Lowercase' letters?");
+  passwordProperties.upperChars = confirm("Should the password include 'Uppercase' letters?");
+  passwordProperties.numChars = confirm("Should the password include 'Numeric' characters?");
+  passwordProperties.specialChars = confirm("Should the password include 'Special' characters ($@%&*, etc)?");
+  
+  // Check that the user has selected at least one type of character.
+  if(passwordProperties.lowerChars === false
+    && passwordProperties.upperChars === false
+    && passwordProperties.numChars === false
+    && passwordProperties.specialChars === false)
+  {
+    alert("Password must contain at least 1 type of character")
+    return false;
+  }
+
+  // All values for the password properties have been selected.
+  return true;
 }
 
 // Function for getting a random element from an array
