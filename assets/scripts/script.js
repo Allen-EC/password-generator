@@ -170,14 +170,96 @@ function getPasswordOptions()
 }
 
 // Function for getting a random element from an array
-function getRandom(arr) {
-
+function getRandom(arr)
+{
+  return arr[Math.floor(Math.random() * (arr.length))];
 }
 
 // Function to generate password with user input
 function generatePassword()
 {
-  getPasswordOptions();
+  var newPassword = "";
+  // Check to see if the properties have been selected.
+  if(getPasswordOptions() != true)
+  {
+    return false; // Properties are invalid, so quit.
+  }
+
+    // Generate a random offset to be used to ensure that at least one of each character type selected is used.
+    var numOffset = Math.floor(passwordProperties.passwordLength/4);
+
+    while(true)  // loop until the new password is the length chosen by the user.
+    {
+      // The following if-else uses the random offset so that each type of character chosen is used at least once.
+      // The purpose of the random ofset is that for passwords of the same length, these selected chars will be in different positions.
+      if(newPassword.length === 0 && passwordProperties.lowerChars)
+        {
+          newPassword += getRandom(lowerCasedCharacters);
+        }
+      else if(newPassword.length === numOffset + 2 && passwordProperties.upperChars)
+        {
+          newPassword += getRandom(upperCasedCharacters);
+        }
+      else if(newPassword.length === numOffset + 4 && passwordProperties.numChars)
+        {
+          newPassword += getRandom(numericCharacters);
+        }
+      else if(newPassword.length === numOffset + 6 && passwordProperties.specialChars)
+        {
+          newPassword += getRandom(specialCharacters);
+        }
+      
+      //  Each time around the loop, we will randomally select which type a character to randomally select
+      //  (assuming that the character set is chosen to be included)
+      switch(Math.floor(Math.random() * 4))
+      {
+        case 0 :
+          {
+            if(passwordProperties.lowerChars && newPassword.length < passwordProperties.passwordLength)
+            {
+              newPassword += getRandom(lowerCasedCharacters);
+            }
+            break;
+          }
+        case 1 :
+          {
+            if(passwordProperties.upperChars && newPassword.length < passwordProperties.passwordLength)
+            {
+              newPassword += getRandom(upperCasedCharacters);
+            }
+            break;
+          }
+        case 2 :
+          {
+            if(passwordProperties.numChars && newPassword.length < passwordProperties.passwordLength)
+            {
+              newPassword += getRandom(numericCharacters);
+            }
+            break;
+          }
+        case 3 :
+          {
+            if(passwordProperties.specialChars && newPassword.length < passwordProperties.passwordLength)
+            {
+              newPassword += getRandom(specialCharacters);
+            }
+            break;
+          }
+          default :
+          {
+            //  Just in case 🤔
+            console.log("should not hit this");
+            break;
+          }
+        }
+        
+        // Once the password is the correct length, break out of the while loop, and return the newly generated password.
+        if(newPassword.length >= passwordProperties.passwordLength)
+        {
+          break;
+        }
+    };
+    return newPassword;
 }
 
 // Get references to the #generate element
@@ -187,8 +269,16 @@ var generateBtn = document.querySelector('#generate');
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector('#password');
-
-  passwordText.value = password;
+  //  If the user did not enter the correct properties, then no password would have been generated, so we want to make sure and existing password is cleared.
+  if(password === false)
+  {
+    passwordText.value = "";
+  }
+  // Update the display to show the newley generated password.
+  else
+  {
+    passwordText.value = password;
+  }
 }
 
 // Add event listener to generate button
