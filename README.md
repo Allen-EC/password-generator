@@ -18,11 +18,17 @@ They will have the option of choosing from :
 
 The user should pick at least one type of character, but may choose from 2, 3, or all 4 types.
 
+The following image shows the web application's appearance and functionality after generating a password:
+
+![password generator demo](./assets/images/screenshot2.png)
+
 ## Installation
 
 N/A
 
 ## Usage
+
+The deployed application can be found here: https://allen-ec.github.io/password-generator/
 
 On clicking "Generate password", you will be asked to choose the length of password required.
 Enter a value between 10 and 64 inclusive.
