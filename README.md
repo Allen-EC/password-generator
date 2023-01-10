@@ -14,7 +14,7 @@ They will have the option of choosing from :
 * Lowercase Letters.
 * Numeric characters (0-9).
 * Special characters from the following: 
-    * @ % + \ / ' ! # $ ^ ? : , ) ( } { ] [ ~ - _ .
+     @ % + \ / ' ! # $ ^ ? : , ) ( } { ] [ ~ - _ .
 
 The user should pick at least one type of character, but may choose from 2, 3, or all 4 types.
 
