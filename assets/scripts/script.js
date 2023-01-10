@@ -140,8 +140,9 @@ function getNum(messagePrompt, minVal, maxVal)
 }
 
 // Function to prompt user for password options
-function getPasswordOptions() {
-
+function getPasswordOptions()
+{
+  passwordProperties.passwordLength = getNum("Please enter a lengh for your password between 10 and 64 characters:", 10, 64);
 }
 
 // Function for getting a random element from an array
@@ -150,8 +151,9 @@ function getRandom(arr) {
 }
 
 // Function to generate password with user input
-function generatePassword() {
-
+function generatePassword()
+{
+  getPasswordOptions();
 }
 
 // Get references to the #generate element
