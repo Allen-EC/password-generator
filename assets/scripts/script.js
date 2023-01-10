@@ -88,6 +88,57 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+// Create global object for the properties for the password. 
+let passwordProperties = 
+{
+  passwordLength : 0,
+  upperChars : false,
+  lowerChars : false,
+  numChars  : false,
+  specialChars : false
+};
+
+// getNum will display a prompt, and return a number between minVal and maxVal inclusive.
+function getNum(messagePrompt, minVal, maxVal)
+{
+  var newString = "";
+  var newNum = prompt(messagePrompt);
+  if(newNum === null || newNum === "")
+  {
+    return false;   // If the user clicks OK without entering a number, of if the user clicks cancel, just exit the function, and return false.
+  }
+
+  // Check to ensure the user has only entered numeric digits.
+  if(isNaN(newNum))
+  {
+    newString = "Please enter only a number between " + minVal + " and " + maxVal + " inclusive.";
+    alert(newString);
+    return false;
+  }
+
+  // Convert the number from a string to a decimal number.
+  newNum = parseInt(newNum);
+
+  // Check if number is too small.
+  if(newNum < minVal)
+  {
+    newString = "Password length must be at least " + minVal + " characters long.";
+    alert(newString);
+    return false;
+  }
+
+  // Check if number too large.
+  if(newNum > maxVal)
+  {
+    newString = "Password length must be no more than " + maxVal + " characters long.";
+    alert(newString);
+    return false;
+  }
+
+  // If the code reaches here, then all must  be OK, so return the number.
+  return newNum;
+}
+
 // Function to prompt user for password options
 function getPasswordOptions() {
 
